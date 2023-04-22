@@ -1,8 +1,11 @@
-import { useParams } from "react-router-dom";
+import "./../../styles/Main.scss";
 
 export const Main = () => {
-    const params = useParams();
-    console.log(params);
-
-    return <h1 className="text-6xl text-sky-400">This is the main page</h1>;
+    return (
+        <div className="page-container">
+            <h1 className="page-container_heading">
+                <span>Задравствуйте,</span> пользователь
+            </h1>
+        </div>
+    );
 };

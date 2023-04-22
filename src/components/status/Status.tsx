@@ -1,8 +1,17 @@
-import { useParams } from "react-router-dom";
+import { useLocation } from "react-router-dom";
+import { StatusForm } from "./StatusFrom";
+import "./../../styles/Status.scss";
 
 export const Status = () => {
-    const { id } = useParams();
-    console.log("id: ", id);
+    const location = useLocation();
+    console.log("location: ", location);
 
-    return <h1 className="text-6xl text-sky-400">This is the STATUS page</h1>;
+    return (
+        <div className="page-container">
+            <h1 className="page-container_heading">
+                <span>Задравствуйте,</span> пользователь
+            </h1>
+            <StatusForm />
+        </div>
+    );
 };

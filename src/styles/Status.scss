@@ -1,0 +1,66 @@
+@import "./tailwind.scss";
+
+@layer components {
+    .status-form {
+        @apply space-y-[20px] lg:grid lg:grid-cols-[224px_1fr_1fr] lg:gap-y-[40px] lg:space-y-0;
+
+        &_label {
+            @apply flex text-[21px] font-[400] lg:h-fit lg:w-[224px] lg:self-center;
+
+            span {
+                @apply text-red-600;
+            }
+        }
+
+        .field-container {
+            @apply space-y-[10px] lg:col-span-3 lg:flex lg:h-fit lg:space-y-0 lg:self-center;
+        }
+
+        .input-container {
+            @apply max-w-[500px] space-y-[4px] lg:w-[335px];
+
+            &_input {
+                @apply h-[30px] w-full border border-faded px-[12px] py-[6px] font-arial text-[16px] font-[400];
+
+                &__errored {
+                    @apply border-red-500;
+                }
+            }
+
+            &_error {
+                @apply text-[12px] text-red-500;
+            }
+        }
+
+        .checkbox-container {
+            @apply flex gap-[10px] lg:h-fit;
+
+            input,
+            label {
+                @apply cursor-pointer;
+            }
+        }
+
+        .button-container {
+            @apply flex items-center gap-[12px] lg:col-start-2;
+
+            &_button {
+                @apply flex w-[120px] cursor-pointer justify-center border border-transparent bg-button 
+                       py-[10px] text-[18px] text-white hover:bg-opacity-80 active:border-button 
+                       active:bg-transparent active:text-button;
+            }
+
+            &_info {
+                @apply text-[12px] text-faded;
+            }
+        }
+
+        &_field-info {
+            @apply text-[12px] text-faded lg:ml-[18px] lg:h-fit lg:self-center;
+        }
+
+        &_hr {
+            @apply h-[1px] w-full bg-[#E5E4E4] lg:col-span-3;
+        }
+    }
+}
