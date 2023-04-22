@@ -1,4 +1,5 @@
-import { FormData as FormDataType } from "../../types";
+import { useState } from "react";
+import { CheckedType, FormData as FormDataType } from "../../types";
 import { CheckboxField } from "./CheckboxField";
 import { FieldContainer } from "./FieldContainer";
 import { PhoneField } from "./PhoneField";
@@ -18,6 +19,12 @@ export const StatusForm = () => {
 
         console.log(dataToSend);
         console.log(JSON.stringify(dataToSend));
+    };
+
+    const [checked, setChecked] = useState<CheckedType>("off");
+
+    const handleChecked = (checked: CheckedType): void => {
+        setChecked(checked);
     };
 
     return (
@@ -107,7 +114,7 @@ export const StatusForm = () => {
             </FieldContainer>
             <FieldContainer
                 label="Элкетронная почта"
-                required={false}
+                required={checked === "on" ? true : false}
                 infoText="Проверка на валидность email."
             >
                 <TextField
@@ -124,6 +131,7 @@ export const StatusForm = () => {
                     name="checkbox"
                     type="checkbox"
                     checkboxLabel="получать актуальную информацию по email"
+                    onData={handleChecked}
                 />
             </FieldContainer>
             <div className="button-container">

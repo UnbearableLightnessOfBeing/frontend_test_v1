@@ -29,7 +29,7 @@ export interface SelectField {
     options: City[];
 }
 
-export type CheckboxField = InputField & { checkboxLabel: string };
+export type CheckboxField = InputField & { checkboxLabel: string, onData: (checked: CheckedType) => void };
 
 export type FieldContainer = FieldLabel & { children: JSX.Element, infoText?: string};
 
@@ -41,3 +41,5 @@ export interface FormData {
     phoneNumber?: string,
     email?: string,
 };
+
+export type CheckedType = "on" | "off";
