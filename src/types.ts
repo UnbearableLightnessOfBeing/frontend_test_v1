@@ -54,3 +54,27 @@ export interface FormData {
 }
 
 export type CheckedType = "on" | "off";
+
+interface FormValidatorProp {
+    errored: boolean;
+    errorMessage: string;
+}
+
+export interface FormValidatorState {
+    name: FormValidatorProp;
+    // lastname: FormValidatorProp;
+    // password: FormValidatorProp;
+    // passwordRe: FormValidatorProp;
+    // phone: FormValidatorProp;
+    // email: FormValidatorProp;
+}
+
+export enum FormValidatorActionKind {
+    setNameError = "setNameError",
+    removeNameError = "removeNameError",
+}
+
+export interface FormValidatorAction {
+    type: FormValidatorActionKind;
+    payload: string | null | undefined;
+}

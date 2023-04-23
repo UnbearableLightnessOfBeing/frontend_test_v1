@@ -1,5 +1,5 @@
 import { useLocation } from "react-router-dom";
-import { StatusForm } from "./StatusFrom";
+import { StatusForm } from "./StatusForm";
 import "./../../styles/Status.scss";
 
 export const Status = () => {

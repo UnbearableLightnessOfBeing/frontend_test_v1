@@ -46,7 +46,7 @@
         }
 
         .button-container {
-            @apply flex items-center gap-[12px] lg:col-start-2;
+            @apply flex items-center gap-[12px] lg:col-span-2 lg:col-start-2;
 
             &_button {
                 @apply flex w-[120px] cursor-pointer justify-center border border-transparent bg-button 
