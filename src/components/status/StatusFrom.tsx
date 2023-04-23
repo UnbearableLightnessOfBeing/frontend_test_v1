@@ -5,6 +5,7 @@ import { FieldContainer } from "./FieldContainer";
 import { PhoneField } from "./PhoneField";
 import { SelectField } from "./SelectField";
 import { TextField } from "./TextField";
+import { SelectctFieldContainer } from "./SelectFieldContainer";
 
 export const StatusForm = () => {
     const handleForm = (e: React.FormEvent<HTMLFormElement>): void => {
@@ -63,11 +64,7 @@ export const StatusForm = () => {
                 />
             </FieldContainer>
             <FieldContainer label="Ваш город" required>
-                <SelectField
-                    name="city"
-                    id="city"
-                    options={[{ name: "aboba" }, { name: "zeliboba" }]}
-                />
+                <SelectctFieldContainer />
             </FieldContainer>
             <div className="status-form_hr"></div>
             <FieldContainer

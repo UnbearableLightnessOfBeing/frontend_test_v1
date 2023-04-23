@@ -19,7 +19,7 @@ export type TextField = InputField & {
 
 export type PhoneField = TextField & { mask: string, maskPlaceholder: string };
 
-type City = {
+export type City = {
     name: string;
 }
 
