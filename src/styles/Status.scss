@@ -25,6 +25,10 @@
                 &__errored {
                     @apply border-red-500;
                 }
+
+                &__pending {
+                    @apply pointer-events-none opacity-50;
+                }
             }
 
             &_error {
