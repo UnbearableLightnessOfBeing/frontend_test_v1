@@ -1,7 +1,7 @@
 import { SelectField } from "./SelectField";
 import { useQuery } from "@tanstack/react-query";
 import { fetchCities } from "./fetchCities";
-import { sortCities } from "./sortCities";
+import { apiResponseToCities } from "./sortCities";
 
 export const SelectctFieldContainer = () => {
     const result = useQuery(["cities"], fetchCities);
@@ -20,7 +20,7 @@ export const SelectctFieldContainer = () => {
     } else if (result.isError) {
         return <div>Произошла ошибка</div>;
     } else {
-        const cities = sortCities(result.data);
+        const cities = apiResponseToCities(result.data);
 
         return (
             <SelectField
