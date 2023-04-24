@@ -1,7 +1,10 @@
+import { useState } from "react";
 import { SelectField as SelectFieldType } from "../../types";
 import { FieldError } from "./FieldError";
 
 export const SelectField = (props: SelectFieldType) => {
+    const [inputValue, setInputValue] = useState(props.value ?? "");
+
     return (
         <div className="input-container">
             <select
@@ -11,6 +14,10 @@ export const SelectField = (props: SelectFieldType) => {
                 }
                 name={props.name}
                 id={props.id}
+                value={inputValue}
+                onChange={(e) => {
+                    setInputValue(e.currentTarget.value);
+                }}
             >
                 {props.options.map((city) => {
                     return (

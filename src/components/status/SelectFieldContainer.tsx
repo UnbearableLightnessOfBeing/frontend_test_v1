@@ -2,6 +2,8 @@ import { SelectField } from "./SelectField";
 import { useQuery } from "@tanstack/react-query";
 import { fetchCities } from "./fetchCities";
 import { apiResponseToCities } from "./sortCities";
+import StatusFormContext from "./StatusFormContext";
+import { useContext } from "react";
 
 export const SelectctFieldContainer = ({
     errored,
@@ -10,6 +12,8 @@ export const SelectctFieldContainer = ({
     errored: boolean;
     errorMessage: string;
 }) => {
+    const [statusForm] = useContext(StatusFormContext);
+
     const result = useQuery(["cities"], fetchCities);
 
     if (result.isLoading) {
@@ -36,6 +40,7 @@ export const SelectctFieldContainer = ({
                 name="city"
                 options={cities}
                 pending={result.isLoading}
+                value={statusForm?.city}
                 errored={errored}
                 errorMessage={errorMessage}
             />

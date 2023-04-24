@@ -14,6 +14,7 @@ export type TextField = InputField & {
     placeholder: string;
     errored: boolean;
     errorMessage?: string;
+    value?: string;
 };
 
 export type PhoneField = TextField & { mask: string; maskPlaceholder: string };
@@ -32,6 +33,7 @@ export interface SelectField {
     name: string;
     options: City[];
     pending: boolean;
+    value?: string;
     errored: boolean;
     errorMessage?: string;
 }

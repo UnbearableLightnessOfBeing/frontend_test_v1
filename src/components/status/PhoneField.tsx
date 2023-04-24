@@ -1,8 +1,11 @@
 import InputMask from "react-input-mask";
 import { FieldError } from "./FieldError";
 import { PhoneField as PhoneFieldType } from "../../types";
+import { useState } from "react";
 
 export const PhoneField = (props: PhoneFieldType) => {
+    const [inputValue, setInputValue] = useState(props.value ?? "");
+
     return (
         <div className="input-container">
             <InputMask
@@ -11,12 +14,14 @@ export const PhoneField = (props: PhoneFieldType) => {
                 name="phone"
                 placeholder="+7 (***) ***-**-**"
                 maskPlaceholder="*"
+                value={inputValue}
+                onChange={(e) => {
+                    setInputValue(e.currentTarget.value);
+                }}
                 className={
                     "input-container_input " +
                     (props.errored ? "input-container_input__errored" : "")
                 }
-                // onChange={props.onChange}
-                // value={props.value}
             />
             {props.errored ? <FieldError message={props.errorMessage} /> : null}
         </div>

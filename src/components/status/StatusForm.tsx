@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useContext } from "react";
 import { CheckedType, FormData as FormDataType } from "../../types";
 import { CheckboxField } from "./CheckboxField";
 import { FieldContainer } from "./FieldContainer";
@@ -6,8 +6,12 @@ import { PhoneField } from "./PhoneField";
 import { TextField } from "./TextField";
 import { SelectctFieldContainer } from "./SelectFieldContainer";
 import { useFormValidator } from "./useFormValidator";
+import StatusFormContext from "./StatusFormContext";
 
 export const StatusForm = () => {
+    const [statusFormContext, setStatusFormContext] =
+        useContext(StatusFormContext);
+
     const [modificationDate, setModificationDate] = useState("");
     const [checked, setChecked] = useState<CheckedType>("off");
     const [formData, setFormData] = useState<FormDataType>({
@@ -32,6 +36,7 @@ export const StatusForm = () => {
             const validated = validateForm();
             if (validated) {
                 setModificationDate(getFormatedDate(new Date()));
+                setStatusFormContext(formData);
                 console.log(formData);
             }
         } else {
@@ -92,6 +97,7 @@ export const StatusForm = () => {
                     type="text"
                     name="name"
                     placeholder="Введите Имя"
+                    value={statusFormContext?.name}
                     errored={formValidatorState.name.errored}
                     errorMessage={formValidatorState.name.errorMessage}
                 />
@@ -106,6 +112,7 @@ export const StatusForm = () => {
                     type="text"
                     name="lastname"
                     placeholder="Введите Фамилию"
+                    value={statusFormContext?.lastname}
                     errored={formValidatorState.lastname.errored}
                     errorMessage={formValidatorState.lastname.errorMessage}
                 />
@@ -158,6 +165,7 @@ export const StatusForm = () => {
                     placeholder="+7 (***) ***-**-**"
                     mask="+7 (999) 999-99-99"
                     maskPlaceholder="*"
+                    value={statusFormContext?.phone}
                     errored={formValidatorState.phone.errored}
                     errorMessage={formValidatorState.phone.errorMessage}
                 />
@@ -172,6 +180,7 @@ export const StatusForm = () => {
                     type="email"
                     name="email"
                     placeholder="Введите электронную почту"
+                    value={statusFormContext?.email}
                     errored={formValidatorState.email.errored}
                     errorMessage={formValidatorState.email.errorMessage}
                 />

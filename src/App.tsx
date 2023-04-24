@@ -1,42 +1,39 @@
+import { AppHeader } from "./AppHeader";
 import { Main } from "./components/main/Main";
 import { Status } from "./components/status/Status";
-import { Link, Routes, Route, useLocation } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { BrowserRouter } from "react-router-dom";
+import StatusFormContext from "./components/status/StatusFormContext";
+import { useState } from "react";
+import type { FormData as FormDataType } from "./types";
 import "./styles/App.scss";
 
+const queryClient = new QueryClient({
+    defaultOptions: {
+        queries: {
+            staleTime: Infinity,
+            cacheTime: Infinity,
+        },
+    },
+});
+
 function App() {
-    console.log(useLocation().pathname);
+    const statusForm = useState(null as FormDataType | null);
+
     return (
         <div id="react-app">
-            <header className="header">
-                <Link to="/">
-                    <h1
-                        className={
-                            "header_link " +
-                            (useLocation().pathname === "/"
-                                ? "header_link__active"
-                                : "")
-                        }
-                    >
-                        Главная
-                    </h1>
-                </Link>
-                <Link to="/status">
-                    <h1
-                        className={
-                            "header_link " +
-                            (useLocation().pathname === "/status"
-                                ? "header_link__active"
-                                : "")
-                        }
-                    >
-                        Статус
-                    </h1>
-                </Link>
-            </header>
-            <Routes>
-                <Route path="/" element={<Main />} />
-                <Route path="/status" element={<Status />} />
-            </Routes>
+            <BrowserRouter>
+                <StatusFormContext.Provider value={statusForm}>
+                    <QueryClientProvider client={queryClient}>
+                        <AppHeader />
+                        <Routes>
+                            <Route path="/" element={<Main />} />
+                            <Route path="/status" element={<Status />} />
+                        </Routes>
+                    </QueryClientProvider>
+                </StatusFormContext.Provider>
+            </BrowserRouter>
         </div>
     );
 }
