@@ -3,7 +3,13 @@ import { useQuery } from "@tanstack/react-query";
 import { fetchCities } from "./fetchCities";
 import { apiResponseToCities } from "./sortCities";
 
-export const SelectctFieldContainer = () => {
+export const SelectctFieldContainer = ({
+    errored,
+    errorMessage,
+}: {
+    errored: boolean;
+    errorMessage: string;
+}) => {
     const result = useQuery(["cities"], fetchCities);
 
     if (result.isLoading) {
@@ -14,6 +20,8 @@ export const SelectctFieldContainer = () => {
                     name="city"
                     options={[{ name: "Загрузка..." }]}
                     pending={result.isLoading}
+                    errored={errored}
+                    errorMessage={errorMessage}
                 />
             </div>
         );
@@ -28,6 +36,8 @@ export const SelectctFieldContainer = () => {
                 name="city"
                 options={cities}
                 pending={result.isLoading}
+                errored={errored}
+                errorMessage={errorMessage}
             />
         );
     }

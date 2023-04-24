@@ -1,4 +1,5 @@
 import { SelectField as SelectFieldType } from "../../types";
+import { FieldError } from "./FieldError";
 
 export const SelectField = (props: SelectFieldType) => {
     return (
@@ -22,6 +23,7 @@ export const SelectField = (props: SelectFieldType) => {
                     );
                 })}
             </select>
+            {props.errored ? <FieldError message={props.errorMessage} /> : null}
         </div>
     );
 };

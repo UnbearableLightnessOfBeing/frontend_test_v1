@@ -1,10 +1,16 @@
-const isCyrillic = (str: string): boolean => {
-    const regex = /^[а-яА-ЯёЁ]+$/g;
+type RegExpFunction = (str: string) => boolean;
 
-    if (regex.test(str)) {
-        return true;
-    } else return false;
+const createPattern = (pattern: RegExp): RegExpFunction => {
+    return (str: string): boolean => {
+        if (str.match(pattern)) {
+            return true;
+        } else return false;
+    };
 };
+
+const isCyrillic = createPattern(/^[а-яА-ЯёЁ]+$/g);
+const isLatin = createPattern(/^[a-zA-Z]+$/g);
+const isEmail = createPattern(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i);
 
 const isEmpty = (str: string): boolean => {
     return str.length ? false : true;
@@ -17,5 +23,7 @@ const isMoreThanNChars = (charNumber: number, str: string): boolean => {
 export default {
     isEmpty,
     isCyrillic,
+    isLatin,
     isMoreThanNChars,
+    isEmail,
 };

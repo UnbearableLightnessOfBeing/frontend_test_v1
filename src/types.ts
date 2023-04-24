@@ -32,6 +32,8 @@ export interface SelectField {
     name: string;
     options: City[];
     pending: boolean;
+    errored: boolean;
+    errorMessage?: string;
 }
 
 export type CheckboxField = InputField & {
@@ -49,8 +51,9 @@ export interface FormData {
     lastname: string;
     city: string;
     password: string;
-    phoneNumber?: string;
-    email?: string;
+    passwordRe: string;
+    phone: string;
+    email: string;
 }
 
 export type CheckedType = "on" | "off";
@@ -62,19 +65,32 @@ interface FormValidatorProp {
 
 export interface FormValidatorState {
     name: FormValidatorProp;
-    // lastname: FormValidatorProp;
-    // password: FormValidatorProp;
-    // passwordRe: FormValidatorProp;
-    // phone: FormValidatorProp;
-    // email: FormValidatorProp;
+    lastname: FormValidatorProp;
+    city: FormValidatorProp;
+    password: FormValidatorProp;
+    passwordRe: FormValidatorProp;
+    phone: FormValidatorProp;
+    email: FormValidatorProp;
 }
 
 export enum FormValidatorActionKind {
-    setNameError = "setNameError",
-    removeNameError = "removeNameError",
+    setError = "setError",
+    removeError = "removeError",
 }
+
+export type FormValidatorFieldName =
+    | "name"
+    | "lastname"
+    | "city"
+    | "password"
+    | "passwordRe"
+    | "phone"
+    | "email";
 
 export interface FormValidatorAction {
     type: FormValidatorActionKind;
-    payload: string | null | undefined;
+    payload: {
+        fieldName: FormValidatorFieldName;
+        message?: string;
+    };
 }
