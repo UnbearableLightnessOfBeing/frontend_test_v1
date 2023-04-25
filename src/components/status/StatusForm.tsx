@@ -29,15 +29,43 @@ export const StatusForm = () => {
         checked === "on" ? true : false
     );
 
+    const isFormTheSame = (f1: FormDataType, f2: FormDataType): boolean => {
+        if (
+            f1.name === f2.name &&
+            f1.lastname === f2.lastname &&
+            f1.city === f2.city &&
+            f1.password === f2.password &&
+            f1.phone === f2.phone &&
+            f1.email === f2.email
+        ) {
+            return true;
+        } else return false;
+    };
+
+    const commitStatusChanges = (): void => {
+        setModificationDate(getFormatedDate(new Date()));
+        setStatusFormContext(formData);
+        localStorage.setItem("statusFormData", JSON.stringify(formData));
+        console.log(formData);
+    };
+
+    const [formError, setFormError] = useState(false);
+
     const initialRender = useRef(true);
 
     useEffect(() => {
         if (!initialRender.current) {
             const validated = validateForm();
             if (validated) {
-                setModificationDate(getFormatedDate(new Date()));
-                setStatusFormContext(formData);
-                console.log(formData);
+                if (
+                    statusFormContext &&
+                    isFormTheSame(formData, statusFormContext)
+                ) {
+                    setFormError(true);
+                } else {
+                    setFormError(false);
+                    commitStatusChanges();
+                }
             }
         } else {
             initialRender.current = false;
@@ -204,6 +232,14 @@ export const StatusForm = () => {
                         : ""}
                 </div>
             </div>
+            <h1
+                className={
+                    "status-form_error " +
+                    (formError ? "status-form_error__active" : "")
+                }
+            >
+                Внесите изменения, чтобы изменить Ваш статус.
+            </h1>
         </form>
     );
 };

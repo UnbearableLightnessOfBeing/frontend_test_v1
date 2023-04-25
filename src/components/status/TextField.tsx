@@ -1,9 +1,13 @@
-import { useContext, useState } from "react";
+import { useEffect, useState } from "react";
 import type { TextField as TextFieldType } from "../../types";
 import { FieldError } from "./FieldError";
 
 export const TextField = (props: TextFieldType) => {
     const [inputValue, setInputValue] = useState(props.value ?? "");
+
+    useEffect(() => {
+        setInputValue(props.value ?? "");
+    }, [props.value]);
 
     return (
         <div className="input-container">

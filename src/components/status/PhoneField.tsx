@@ -1,10 +1,14 @@
 import InputMask from "react-input-mask";
 import { FieldError } from "./FieldError";
 import { PhoneField as PhoneFieldType } from "../../types";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export const PhoneField = (props: PhoneFieldType) => {
     const [inputValue, setInputValue] = useState(props.value ?? "");
+
+    useEffect(() => {
+        setInputValue(props.value ?? "");
+    }, [props.value]);
 
     return (
         <div className="input-container">
