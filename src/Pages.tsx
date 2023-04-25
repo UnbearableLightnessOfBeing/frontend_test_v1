@@ -1,9 +1,13 @@
 import { Main } from "./components/main/Main";
 import { Status } from "./components/status/Status";
 import { Routes, Route } from "react-router-dom";
-import { useContext, useEffect } from "react";
-import type { FormData as FormDataType } from "./types";
+import { useContext, useEffect, useState } from "react";
+import type {
+    FormData as FormDataType,
+    LoacalStatusContextType,
+} from "./types";
 import StatusFormContext from "./components/status/StatusFormContext";
+import LoacalStatusContext from "./components/status/LocalStatusContext";
 
 export const Pages = () => {
     const [statusFormContext, setStatusFormContext] =
@@ -18,10 +22,22 @@ export const Pages = () => {
         setStatusFormContext(storedData);
     }, []);
 
+    const serializedLocalStatus = localStorage.getItem("localStatusContext");
+    const storedLocalStauts = serializedLocalStatus
+        ? (JSON.parse(serializedLocalStatus) as LoacalStatusContextType)
+        : null;
+
+    const localStatusContext = useState(
+        storedLocalStauts ??
+            ({ date: "", checked: "off" } as LoacalStatusContextType)
+    );
+
     return (
-        <Routes>
-            <Route path="/" element={<Main />} />
-            <Route path="/status" element={<Status />} />
-        </Routes>
+        <LoacalStatusContext.Provider value={localStatusContext}>
+            <Routes>
+                <Route path="/" element={<Main />} />
+                <Route path="/status" element={<Status />} />
+            </Routes>
+        </LoacalStatusContext.Provider>
     );
 };

@@ -7,12 +7,15 @@ import { TextField } from "./TextField";
 import { SelectctFieldContainer } from "./SelectFieldContainer";
 import { useFormValidator } from "./useFormValidator";
 import StatusFormContext from "./StatusFormContext";
+import LoacalStatusContext from "./LocalStatusContext";
 
 export const StatusForm = () => {
     const [statusFormContext, setStatusFormContext] =
         useContext(StatusFormContext);
 
-    const [modificationDate, setModificationDate] = useState("");
+    const [localStatusContext, setLocalStatusContext] =
+        useContext(LoacalStatusContext);
+
     const [checked, setChecked] = useState<CheckedType>("off");
     const [formData, setFormData] = useState<FormDataType>({
         name: "",
@@ -43,7 +46,12 @@ export const StatusForm = () => {
     };
 
     const commitStatusChanges = (): void => {
-        setModificationDate(getFormatedDate(new Date()));
+        // setModificationDate(getFormatedDate(new Date()));
+        setLocalStatusContext(
+            Object.assign(localStatusContext, {
+                date: getFormatedDate(new Date()),
+            })
+        );
         setStatusFormContext(formData);
         localStorage.setItem("statusFormData", JSON.stringify(formData));
         console.log(formData);
@@ -227,8 +235,8 @@ export const StatusForm = () => {
                     Изменить
                 </button>
                 <div className="button-container_info">
-                    {modificationDate
-                        ? "последние изменения " + modificationDate
+                    {localStatusContext.date
+                        ? "последние изменения " + localStatusContext.date
                         : ""}
                 </div>
             </div>

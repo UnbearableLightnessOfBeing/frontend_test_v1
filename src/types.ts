@@ -96,3 +96,8 @@ export interface FormValidatorAction {
         message?: string;
     };
 }
+
+export type LoacalStatusContextType = {
+    date: string;
+    checked: CheckedType;
+};
