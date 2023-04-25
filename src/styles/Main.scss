@@ -1,1 +1,13 @@
 @import "./tailwind.scss";
+
+@layer components {
+    .status-info {
+        @apply space-y-[12px] text-[20px] text-faded-heading;
+
+        &_item {
+            span {
+                @apply font-[600];
+            }
+        }
+    }
+}
